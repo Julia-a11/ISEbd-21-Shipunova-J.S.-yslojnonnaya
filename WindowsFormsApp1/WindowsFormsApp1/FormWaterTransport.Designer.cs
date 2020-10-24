@@ -1,6 +1,6 @@
 ﻿namespace Laboratornaya
 {
-    partial class FormAircraftCarrier
+    partial class FormWaterTransport
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -28,26 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonCreate = new System.Windows.Forms.Button();
+            this.buttonCreateAircraft = new System.Windows.Forms.Button();
             this.buttonRight = new System.Windows.Forms.Button();
             this.buttonLeft = new System.Windows.Forms.Button();
             this.buttonDown = new System.Windows.Forms.Button();
             this.buttonUp = new System.Windows.Forms.Button();
-            this.pictureBoxAircraftCarrier = new System.Windows.Forms.PictureBox();
-            this.comboBoxPlane = new System.Windows.Forms.ComboBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAircraftCarrier)).BeginInit();
+            this.pictureBoxShip = new System.Windows.Forms.PictureBox();
+            this.comboBoxPlanesCount = new System.Windows.Forms.ComboBox();
+            this.buttonCreateWarShip = new System.Windows.Forms.Button();
+            this.comboBoxAdditions = new System.Windows.Forms.ComboBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxShip)).BeginInit();
             this.SuspendLayout();
             // 
-            // buttonCreate
+            // buttonCreateAircraft
             // 
-            this.buttonCreate.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.buttonCreate.Location = new System.Drawing.Point(777, 12);
-            this.buttonCreate.Name = "buttonCreate";
-            this.buttonCreate.Size = new System.Drawing.Size(83, 27);
-            this.buttonCreate.TabIndex = 1;
-            this.buttonCreate.Text = "Создать";
-            this.buttonCreate.UseVisualStyleBackColor = false;
-            this.buttonCreate.Click += new System.EventHandler(this.buttonCreate_Click);
+            this.buttonCreateAircraft.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.buttonCreateAircraft.Location = new System.Drawing.Point(639, 12);
+            this.buttonCreateAircraft.Name = "buttonCreateAircraft";
+            this.buttonCreateAircraft.Size = new System.Drawing.Size(213, 27);
+            this.buttonCreateAircraft.TabIndex = 1;
+            this.buttonCreateAircraft.Text = "Создать Авианосец";
+            this.buttonCreateAircraft.UseVisualStyleBackColor = false;
+            this.buttonCreateAircraft.Click += new System.EventHandler(this.buttonCreateAirctaft_Click);
             // 
             // buttonRight
             // 
@@ -98,52 +100,75 @@
             this.buttonUp.UseVisualStyleBackColor = true;
             this.buttonUp.Click += new System.EventHandler(this.buttonMove_Click);
             // 
-            // pictureBoxAircraftCarrier
+            // pictureBoxShip
             // 
-            this.pictureBoxAircraftCarrier.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxAircraftCarrier.Location = new System.Drawing.Point(0, 0);
-            this.pictureBoxAircraftCarrier.Name = "pictureBoxAircraftCarrier";
-            this.pictureBoxAircraftCarrier.Size = new System.Drawing.Size(884, 461);
-            this.pictureBoxAircraftCarrier.TabIndex = 0;
-            this.pictureBoxAircraftCarrier.TabStop = false;
+            this.pictureBoxShip.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxShip.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxShip.Name = "pictureBoxShip";
+            this.pictureBoxShip.Size = new System.Drawing.Size(884, 461);
+            this.pictureBoxShip.TabIndex = 0;
+            this.pictureBoxShip.TabStop = false;
             // 
-            // comboBoxPlane
+            // comboBoxPlanesCount
             // 
-            this.comboBoxPlane.FormattingEnabled = true;
-            this.comboBoxPlane.Location = new System.Drawing.Point(777, 45);
-            this.comboBoxPlane.Name = "comboBoxPlane";
-            this.comboBoxPlane.Size = new System.Drawing.Size(83, 21);
-            this.comboBoxPlane.TabIndex = 6;
+            this.comboBoxPlanesCount.FormattingEnabled = true;
+            this.comboBoxPlanesCount.Location = new System.Drawing.Point(639, 78);
+            this.comboBoxPlanesCount.Name = "comboBoxPlanesCount";
+            this.comboBoxPlanesCount.Size = new System.Drawing.Size(213, 21);
+            this.comboBoxPlanesCount.TabIndex = 6;
             // 
-            // FormAircraftCarrier
+            // buttonCreateWarShip
+            // 
+            this.buttonCreateWarShip.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.buttonCreateWarShip.Location = new System.Drawing.Point(639, 45);
+            this.buttonCreateWarShip.Name = "buttonCreateWarShip";
+            this.buttonCreateWarShip.Size = new System.Drawing.Size(213, 27);
+            this.buttonCreateWarShip.TabIndex = 7;
+            this.buttonCreateWarShip.Text = "Создать военный корабль";
+            this.buttonCreateWarShip.UseVisualStyleBackColor = false;
+            this.buttonCreateWarShip.Click += new System.EventHandler(this.buttonCreateWarShip_Click);
+            // 
+            // comboBoxAdditions
+            // 
+            this.comboBoxAdditions.FormattingEnabled = true;
+            this.comboBoxAdditions.Location = new System.Drawing.Point(639, 114);
+            this.comboBoxAdditions.Name = "comboBoxAdditions";
+            this.comboBoxAdditions.Size = new System.Drawing.Size(213, 21);
+            this.comboBoxAdditions.TabIndex = 8;
+            // 
+            // FormWaterTransport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 461);
-            this.Controls.Add(this.comboBoxPlane);
+            this.Controls.Add(this.comboBoxAdditions);
+            this.Controls.Add(this.buttonCreateWarShip);
+            this.Controls.Add(this.comboBoxPlanesCount);
             this.Controls.Add(this.buttonRight);
             this.Controls.Add(this.buttonLeft);
             this.Controls.Add(this.buttonDown);
             this.Controls.Add(this.buttonUp);
-            this.Controls.Add(this.buttonCreate);
-            this.Controls.Add(this.pictureBoxAircraftCarrier);
-            this.Name = "FormAircraftCarrier";
+            this.Controls.Add(this.buttonCreateAircraft);
+            this.Controls.Add(this.pictureBoxShip);
+            this.Name = "FormWaterTransport";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Авианосец";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAircraftCarrier)).EndInit();
+            this.Text = "Водный транспорт";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxShip)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBoxAircraftCarrier;
-        private System.Windows.Forms.Button buttonCreate;
+        private System.Windows.Forms.PictureBox pictureBoxShip;
+        private System.Windows.Forms.Button buttonCreateAircraft;
         private System.Windows.Forms.Button buttonUp;
         private System.Windows.Forms.Button buttonDown;
         private System.Windows.Forms.Button buttonLeft;
         private System.Windows.Forms.Button buttonRight;
-        private System.Windows.Forms.ComboBox comboBoxPlane;
+        private System.Windows.Forms.ComboBox comboBoxPlanesCount;
+        private System.Windows.Forms.Button buttonCreateWarShip;
+        private System.Windows.Forms.ComboBox comboBoxAdditions;
     }
 }
 

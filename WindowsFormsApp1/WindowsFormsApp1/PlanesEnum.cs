@@ -1,6 +1,6 @@
 ﻿namespace Laboratornaya
 {
-    public enum PlaneEnum
+    public enum PlanesEnum
     {
         Three = 3,
         Four = 4,
