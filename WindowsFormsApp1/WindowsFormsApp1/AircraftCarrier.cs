@@ -4,6 +4,8 @@ namespace Laboratornaya
 {
     class AircraftCarrier : WarShip
     {
+        private IAdditions additions;
+
         // дополнительные цвета
         public Color DopColor { private set; get; }
 
@@ -17,13 +19,14 @@ namespace Laboratornaya
         public bool HasRadar { private set; get; }
 
         // Конструктор
-        public AircraftCarrier(int maxSpeed, float weight, Color mainColor, Color dopColor, bool hasPlane, bool hasRunWay, bool hasRadar) :
+        public AircraftCarrier(int maxSpeed, float weight, Color mainColor, Color dopColor, bool hasPlane, bool hasRunWay, bool hasRadar, int planesCount, int planeType) :
             base(maxSpeed, weight, mainColor, 150, 100)
         {
             DopColor = dopColor;
             HasPlane = hasPlane;
             HasRunWay = hasRunWay;
             HasRadar = hasRadar;
+            additions = GetAdditions(planeType, planesCount);
         }
 
         // отрисовка авианосца
@@ -61,6 +64,21 @@ namespace Laboratornaya
                 g.DrawLine(new Pen(Color.Black), _startPosX + 104, _startPosY + 35, _startPosX + 120, _startPosY + 35);
                 g.FillRectangle(new SolidBrush(Color.LightSlateGray), _startPosX + 111, _startPosY + 26, 5, 20);
             }
+            additions?.DrawAdditions(g, _startPosX, _startPosY);
+        }
+
+        private IAdditions GetAdditions(int planeType, int planesCount)
+        {
+            switch (planeType)     
+            {
+                case 0:
+                    return new Plane(planesCount);
+                case 1:
+                    return new Destroyer(planesCount);
+                case 2:
+                    return new Bomber(planesCount);                
+            }
+            return null;
         }
     }
 }

@@ -6,12 +6,12 @@ namespace Laboratornaya
 {
     public partial class FormDocks : Form
     {
-        private readonly Docks<WarShip,IAdditions> docks;
+        private readonly Docks<WarShip, IAdditions> docks;
 
         public FormDocks()
         {
             InitializeComponent();
-            docks = new Docks<WarShip,IAdditions>(pictureBoxDocks.Width, pictureBoxDocks.Height);
+            docks = new Docks<WarShip, IAdditions>(pictureBoxDocks.Width, pictureBoxDocks.Height);
             Draw();
         }
 
@@ -31,7 +31,7 @@ namespace Laboratornaya
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 WarShip ship = new WarShip(100, 1000, dialog.Color);
-                if (docks + ship )
+                if (docks + ship)
                 {
                     Draw();
                 }
@@ -51,7 +51,7 @@ namespace Laboratornaya
                 ColorDialog dialogDop = new ColorDialog();
                 if (dialogDop.ShowDialog() == DialogResult.OK)
                 {
-                     WarShip ship = new AircraftCarrier(100, 1000, dialog.Color, dialogDop.Color, true, true, true);
+                    WarShip ship = new AircraftCarrier(100, 1000, dialog.Color, dialogDop.Color, true, true, true, 3, 0);
                     if (docks + ship)
                     {
                         Draw();
@@ -70,7 +70,7 @@ namespace Laboratornaya
             if (maskedTextBoxNumber.Text != "")
             {
                 var ship = docks - Convert.ToInt32(maskedTextBoxNumber.Text);
-                if (ship != null )
+                if (ship != null)
                 {
                     FormWaterTransport form = new FormWaterTransport();
                     form.SetShip(ship);
@@ -86,7 +86,7 @@ namespace Laboratornaya
             int _countOfPlace = Convert.ToInt32(maskedTextBoxCountOfWarShips.Text);
             if (maskedTextBoxCountOfWarShips.Text != "")
             {
-                if (docks ==  _countOfPlace)
+                if (docks == _countOfPlace)
                 {
                     MessageBox.Show("Количество занятых мест равно  " + _countOfPlace + " (истина)");
                 }
@@ -114,8 +114,3 @@ namespace Laboratornaya
         }
     }
 }
-    
-      
-      
-    
-
