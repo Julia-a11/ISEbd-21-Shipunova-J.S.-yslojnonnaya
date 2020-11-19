@@ -2,7 +2,8 @@
 
 namespace Laboratornaya
 {
-    class WarShip : Ship
+    //базовый класс
+    public class WarShip : Ship
     {
         // ширина отрисовки корабля
         protected readonly int shipWidth = 150;
@@ -71,7 +72,7 @@ namespace Laboratornaya
             // отрисовка тела корабля
             Point[] points = new Point[10]
             {
-                   new Point((int)(_startPosX), (int)(_startPosY + 22)),
+                   new Point((int)(_startPosX ), (int)(_startPosY + 22)),
                    new Point((int)(_startPosX + 40), (int)(_startPosY )),
                    new Point((int)(_startPosX + 120), (int)(_startPosY)),
                    new Point((int)(_startPosX + 120), (int)(_startPosY + 22)),
@@ -80,7 +81,7 @@ namespace Laboratornaya
                    new Point((int)(_startPosX + 120), (int)(_startPosY + 78)),
                    new Point((int)(_startPosX + 120), (int)(_startPosY + 100)),
                    new Point((int)(_startPosX + 40), (int)(_startPosY + 100)),
-                   new Point((int)(_startPosX), (int)(_startPosY + 78)),
+                   new Point((int)(_startPosX ), (int)(_startPosY + 78)),
             };
             g.FillPolygon(new SolidBrush(MainColor), points);
 

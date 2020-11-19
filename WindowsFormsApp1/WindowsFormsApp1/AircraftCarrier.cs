@@ -5,7 +5,8 @@ namespace Laboratornaya
     class AircraftCarrier : WarShip
     {
         private IAdditions additions;
-        // дополнительные цыета
+
+        // дополнительные цвета
         public Color DopColor { private set; get; }
 
         // наличие самолётов
@@ -39,13 +40,14 @@ namespace Laboratornaya
             {
                 Point[] points = new Point[4]
                 {
-                   new Point((int)(_startPosX), (int)(_startPosY + 22)),
+                   new Point((int)(_startPosX ), (int)(_startPosY + 22)),
                    new Point((int)(_startPosX + 150), (int)(_startPosY + 22)),
                    new Point((int)(_startPosX + 150), (int)(_startPosY + 78)),
-                   new Point((int)(_startPosX  ), (int)(_startPosY + 78)),
+                   new Point((int)(_startPosX ), (int)(_startPosY + 78)),
+
                 };
                 g.FillPolygon(new SolidBrush(DopColor), points);
-                g.DrawLine(new Pen(Color.White), _startPosX, _startPosY + 47, _startPosX + 150, _startPosY + 47);
+                g.DrawLine(new Pen(Color.White), _startPosX , _startPosY + 47, _startPosX + 150, _startPosY + 47);
             }
 
             // отрисовка радара
@@ -54,19 +56,27 @@ namespace Laboratornaya
                 g.FillRectangle(new SolidBrush(Color.Black), _startPosX + 95, _startPosY + 5, 20, 10);
                 g.FillEllipse(new SolidBrush(Color.LightGray), _startPosX + 97, _startPosY + 8, 5, 5);
             }
+
+            // отрисовка самолёта
+            if (HasPlane)
+            {
+                g.DrawLine(new Pen(Color.Black), _startPosX + 104, _startPosY + 27, _startPosX + 104, _startPosY + 43);
+                g.DrawLine(new Pen(Color.Black), _startPosX + 104, _startPosY + 35, _startPosX + 120, _startPosY + 35);
+                g.FillRectangle(new SolidBrush(Color.LightSlateGray), _startPosX + 111, _startPosY + 26, 5, 20);
+            }
             additions?.DrawAdditions(g, _startPosX, _startPosY);
         }
 
         private IAdditions GetAdditions(int planeType, int planesCount)
         {
-            switch (planeType)
+            switch (planeType)     
             {
                 case 0:
                     return new Plane(planesCount);
                 case 1:
                     return new Destroyer(planesCount);
                 case 2:
-                    return new Bomber(planesCount);
+                    return new Bomber(planesCount);                
             }
             return null;
         }
