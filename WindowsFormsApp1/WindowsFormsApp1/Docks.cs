@@ -58,20 +58,7 @@ namespace Laboratornaya
             return null;
         }
 
-        public static bool operator ==(Docks<T, U> d, int _places)
-        {
-            int currentPlaceCount = 0;
-            for (int i = 0; i <d._places.Length; i++)
-            {
-                if (d._places[i] != null)
-                {
-                    currentPlaceCount++;
-                }
-            }
-            return (_places == currentPlaceCount);  
-        }
-
-        public static bool operator !=(Docks<T,U> d, int _places)
+        public static bool operator ==(Docks<T, U> d, int places)
         {
             int currentPlaceCount = 0;
             for (int i = 0; i < d._places.Length; i++)
@@ -81,7 +68,20 @@ namespace Laboratornaya
                     currentPlaceCount++;
                 }
             }
-            return (_places != currentPlaceCount);
+            return (places == currentPlaceCount);
+        }
+
+        public static bool operator !=(Docks<T, U> d, int places)
+        {
+            int currentPlaceCount = 0;
+            for (int i = 0; i < d._places.Length; i++)
+            {
+                if (d._places[i] != null)
+                {
+                    currentPlaceCount++;
+                }
+            }
+            return (places != currentPlaceCount);
         }
 
         // Метод отрисовки дока
