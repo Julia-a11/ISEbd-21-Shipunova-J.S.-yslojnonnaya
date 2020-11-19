@@ -1,10 +1,17 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Laboratornaya
 {
-    public interface IAdditions
+   public  interface IAdditions
     {
-        int Digit { set; }
-        void DrawAdditions(Graphics g, float _startPosX, float _startPosY);
+
     }
+    
 }
+
+

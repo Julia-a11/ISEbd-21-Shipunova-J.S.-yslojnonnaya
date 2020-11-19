@@ -2,7 +2,8 @@
 
 namespace Laboratornaya
 {
-    public abstract class Ship : IWaterTransport
+    //абстрактный класс
+    public abstract class Ship: IWaterTransport
     {
         //левая координата отрисовки корабля
         protected float _startPosX;
@@ -28,18 +29,19 @@ namespace Laboratornaya
         //установка позиции авианосца
         public void SetPosition(int x, int y, int width, int height)
         {
-            if ((_startPosX >= 0 && _startPosX < _pictureWidth) &&
-                (_startPosY >= 0 && _startPosY < _pictureHeight))
+            _pictureHeight = height;
+            _pictureWidth = width;
+
+            if ((_startPosX >= 0 && _startPosX   < _pictureWidth) &&
+                (_startPosY >= 0 && _startPosY   < _pictureHeight))
             {
                 _startPosX = x;
                 _startPosY = y;
-            }
-            _pictureHeight = height;
-            _pictureWidth = width;
+            } 
         }
 
         public abstract void DrawWaterTransport(Graphics g);
 
-        public abstract void MoveTransport(Direction direction);
+        public abstract void MoveTransport(Direction direction); 
     }
 }
