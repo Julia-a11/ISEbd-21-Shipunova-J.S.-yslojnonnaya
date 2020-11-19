@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -6,13 +7,35 @@ namespace Laboratornaya
 {
     public partial class FormDocks : Form
     {
-        private readonly Docks<WarShip, IAdditions> docks;
+        //объект от класса - коллекции доков
+        private readonly DocksCollection docksCollection;
 
+        private readonly LinkedList<Ship> shipsList;
         public FormDocks()
         {
             InitializeComponent();
-            docks = new Docks<WarShip, IAdditions>(pictureBoxDocks.Width, pictureBoxDocks.Height);
+            docksCollection = new DocksCollection(pictureBoxDocks.Width, pictureBoxDocks.Height);
+            shipsList = new LinkedList<Ship>();
             Draw();
+        }
+
+        // Заполнение listBox
+        private void ReloadLevels()
+        {
+            int index = listBoxDocks.SelectedIndex;
+            listBoxDocks.Items.Clear();
+            for (int i = 0; i < docksCollection.Keys.Count; i++)
+            {
+                listBoxDocks.Items.Add(docksCollection.Keys[i]);
+            }
+            if (listBoxDocks.Items.Count > 0 && (index == -1 || index >= listBoxDocks.Items.Count))
+            {
+                listBoxDocks.SelectedIndex = 0;
+            }
+            else if (listBoxDocks.Items.Count > 0 && index > -1 && index < listBoxDocks.Items.Count)
+            {
+                listBoxDocks.SelectedIndex = index;
+            }
         }
 
         //метод отрисовки дока
@@ -20,39 +43,27 @@ namespace Laboratornaya
         {
             Bitmap bmp = new Bitmap(pictureBoxDocks.Width, pictureBoxDocks.Height);
             Graphics gr = Graphics.FromImage(bmp);
-            docks.Draw(gr);
+            if (listBoxDocks.SelectedIndex > -1)
+            {
+                docksCollection[listBoxDocks.SelectedItem.ToString()].Draw(gr);
+            }
+            else
+            {
+                gr.FillRectangle(new SolidBrush(Color.Transparent), 0, 0, pictureBoxDocks.Width, pictureBoxDocks.Height);
+            }
             pictureBoxDocks.Image = bmp;
         }
 
         //обработка нажатия кнопки "Припарковать военный корабль"
         private void buttonParkingWarShip_Click(object sender, EventArgs e)
         {
-            ColorDialog dialog = new ColorDialog();
-            if (dialog.ShowDialog() == DialogResult.OK)
+            if (listBoxDocks.SelectedIndex > -1)
             {
-                WarShip ship = new WarShip(100, 1000, dialog.Color);
-                if (docks + ship)
+                ColorDialog dialog = new ColorDialog();
+                if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    Draw();
-                }
-                else
-                {
-                    MessageBox.Show("Доки переполнены");
-                }
-            }
-        }
-
-        //обработка нажатия кнопки "Припарковать авианосец"
-        private void buttonParkingAircraftCarrier_Click(object sender, EventArgs e)
-        {
-            ColorDialog dialog = new ColorDialog();
-            if (dialog.ShowDialog() == DialogResult.OK)
-            {
-                ColorDialog dialogDop = new ColorDialog();
-                if (dialogDop.ShowDialog() == DialogResult.OK)
-                {
-                    WarShip ship = new AircraftCarrier(100, 1000, dialog.Color, dialogDop.Color, true, true, true, 3, 0);
-                    if (docks + ship)
+                    var ship = new WarShip(100, 1000, dialog.Color);
+                    if (docksCollection[listBoxDocks.SelectedItem.ToString()] + ship)
                     {
                         Draw();
                     }
@@ -64,52 +75,84 @@ namespace Laboratornaya
             }
         }
 
+        //обработка нажатия кнопки "Припарковать авианосец"
+        private void buttonParkingAircraftCarrier_Click(object sender, EventArgs e)
+        {
+            if (listBoxDocks.SelectedIndex > -1)
+            {
+                ColorDialog dialog = new ColorDialog();
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    ColorDialog dialogDop = new ColorDialog();
+                    if (dialogDop.ShowDialog() == DialogResult.OK)
+                    {
+                        var ship = new AircraftCarrier(100, 1000, dialog.Color, dialogDop.Color, true, true, true, 3, 0);
+                        if (docksCollection[listBoxDocks.SelectedItem.ToString()] + ship)
+                        {
+                            Draw();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Доки переполнены");
+                        }
+                    }
+                }
+            }
+        }
+
         //обработка кнопки "Забрать"
         private void buttonTakeShip_Click(object sender, EventArgs e)
         {
-            if (maskedTextBoxNumber.Text != "")
+            if (maskedTextBoxNumber.Text != "" && listBoxDocks.SelectedIndex > -1)
             {
-                var ship = docks - Convert.ToInt32(maskedTextBoxNumber.Text);
+                var ship = docksCollection[listBoxDocks.SelectedItem.ToString()] - Convert.ToInt32(maskedTextBoxNumber.Text);
                 if (ship != null)
                 {
-                    FormWaterTransport form = new FormWaterTransport();
-                    form.SetShip(ship);
-
-                    form.ShowDialog();
+                    shipsList.AddLast(ship);
                 }
                 Draw();
             }
         }
 
-        private void buttonEqual_Click(object sender, EventArgs e)
+        private void buttonAddDocks_Click(object sender, EventArgs e)
         {
-            int _countOfPlace = Convert.ToInt32(maskedTextBoxCountOfWarShips.Text);
-            if (maskedTextBoxCountOfWarShips.Text != "")
+            if (string.IsNullOrEmpty(textBoxDocks.Text))
             {
-                if (docks == _countOfPlace)
+                MessageBox.Show("Введите название дока", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            docksCollection.DocksAdd(textBoxDocks.Text);
+            ReloadLevels();
+        }
+
+        private void buttonDocksRemove_Click(object sender, EventArgs e)
+        {
+            if (listBoxDocks.SelectedIndex > -1)
+            {
+                if (MessageBox.Show($"Удалить док {listBoxDocks.SelectedItem.ToString()}?",
+                   "Удаление", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    MessageBox.Show("Количество занятых мест равно  " + _countOfPlace + " (истина)");
-                }
-                else
-                {
-                    MessageBox.Show("Количество занятых мест не равно  " + _countOfPlace + " (ложь)");
+                    docksCollection.DocksDel(listBoxDocks.SelectedItem.ToString());
+                    ReloadLevels();
+                    Draw();
                 }
             }
         }
 
-        private void buttonNotEqual_Click(object sender, EventArgs e)
+        private void listBoxDocks_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int _countOfPlace = Convert.ToInt32(maskedTextBoxCountOfWarShips.Text);
-            if (maskedTextBoxCountOfWarShips.Text != "")
+            Draw();
+        }
+
+        //Передать
+        private void buttonTransfer_Click(object sender, EventArgs e)
+        {
+            if (shipsList.Count > 0)
             {
-                if (docks != _countOfPlace)
-                {
-                    MessageBox.Show("Количество занятых мест не равно  " + _countOfPlace + " (истина)");
-                }
-                else
-                {
-                    MessageBox.Show("Количество занятых мест равно  " + _countOfPlace + " (ложь)");
-                }
+                FormWaterTransport formWaterTransport = new FormWaterTransport();
+                formWaterTransport.SetShip(shipsList.Last.Value);
+                shipsList.RemoveLast();
+                formWaterTransport.ShowDialog();
             }
         }
     }
