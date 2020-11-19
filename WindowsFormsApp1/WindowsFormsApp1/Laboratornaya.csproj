@@ -50,6 +50,7 @@
     <Compile Include="Destroyer.cs" />
     <Compile Include="Direction.cs" />
     <Compile Include="Docks.cs" />
+    <Compile Include="DocksCollection.cs" />
     <Compile Include="FormDocks.cs">
       <SubType>Form</SubType>
     </Compile>
