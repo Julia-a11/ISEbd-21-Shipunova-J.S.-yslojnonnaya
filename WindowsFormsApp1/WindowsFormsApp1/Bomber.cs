@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace Laboratornaya
 {
@@ -88,6 +89,11 @@ namespace Laboratornaya
         {
             DrawBomberFour(g, _startPosX, _startPosY);
             DrawBomber(g, _startPosX + 90, _startPosY + 1);
+        }
+
+        public override string ToString()
+        {
+            return this.GetType().Name + "." + Convert.ToInt32(planeEnum);         
         }
     }
 }

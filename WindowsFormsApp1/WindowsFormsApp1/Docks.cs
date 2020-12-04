@@ -70,7 +70,7 @@ namespace Laboratornaya
             }
         }
 
-        //метод отрисовки мест
+        // метод отрисовки мест
         private void DrawMarking(Graphics g)
         {
             Pen pen = new Pen(Color.Black, 3);
@@ -78,7 +78,7 @@ namespace Laboratornaya
             {
                 for (int j = 0; j < pictureHeight / _placeSizeHeight + 1; ++j)
                 {
-                    //линия разметки места
+                    // линия разметки места
                     g.DrawLine(pen, i * _placeSizeWidth, j * _placeSizeHeight,
                         i * _placeSizeWidth + _placeSizeWidth / 2, j * _placeSizeHeight);
                 }
@@ -86,6 +86,7 @@ namespace Laboratornaya
                     (pictureHeight / _placeSizeHeight) * _placeSizeHeight);
             }
         }
+
         public T this [int index]
         {
             get
@@ -96,6 +97,21 @@ namespace Laboratornaya
                 }
                 return null;
             }
+        }
+
+        // функция получения элемента из списка
+        public T GetNext(int ind)
+        {
+            if (ind < 0 || ind >= _places.Count)
+            {
+                return null;
+            }
+            return _places[ind];
+        }
+
+        public void Clear()
+        {
+            _places.Clear();
         }
     }
 }
