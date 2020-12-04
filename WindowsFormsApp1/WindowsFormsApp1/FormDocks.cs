@@ -66,7 +66,7 @@ namespace Laboratornaya
         {
             if (ship != null && listBoxDocks.SelectedIndex > -1)
             {
-                if ((docksCollection[listBoxDocks.SelectedItem.ToString()] + ship))
+                if (docksCollection[listBoxDocks.SelectedItem.ToString()] + ship)
                 {
                     Draw();
                 }
@@ -76,7 +76,6 @@ namespace Laboratornaya
                 }
             }
         }
-
 
         //обработка кнопки "Забрать"
         private void buttonTakeShip_Click(object sender, EventArgs e)

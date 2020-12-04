@@ -53,15 +53,13 @@ namespace Laboratornaya
         // Передаём информацию при нажатии на Label
         private void labelWarShip_MouseDown(object sender, MouseEventArgs e)
         {
-            labelWarShip.DoDragDrop(labelWarShip.Text, DragDropEffects.Move |
-                DragDropEffects.Copy);
+            labelWarShip.DoDragDrop(labelWarShip.Text, DragDropEffects.Move | DragDropEffects.Copy);
         }
 
         // Передаём информацию при нажатии на Label
         private void labelAircraftCarrier_MouseDown(object sender, MouseEventArgs e)
         {
-            labelAircraftCarrier.DoDragDrop(labelAircraftCarrier.Text, DragDropEffects.Move |
-                DragDropEffects.Copy);
+            labelAircraftCarrier.DoDragDrop(labelAircraftCarrier.Text, DragDropEffects.Move | DragDropEffects.Copy);
         }
 
         // Проверка получаемой информации (её типа на соответствие требуемому)
@@ -99,8 +97,7 @@ namespace Laboratornaya
         private void panelColor_MouseDown(object sender, MouseEventArgs e)
         {
             Control panelColor = (Control)sender;
-            panelColor.DoDragDrop(panelColor.BackColor, DragDropEffects.Move |
-                DragDropEffects.Copy);
+            panelColor.DoDragDrop(panelColor.BackColor, DragDropEffects.Move | DragDropEffects.Copy);
         }
 
         // Проверка получаемой информации (её типа на соответствие требуемому)
@@ -164,7 +161,6 @@ namespace Laboratornaya
                         DragDropEffects.Move | DragDropEffects.Copy);
                     break;
             }
-
         }
 
         private void labelAdditions_DragEnter(object sender, DragEventArgs e)

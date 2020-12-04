@@ -56,7 +56,6 @@ namespace Laboratornaya
             }
 
             // отрисовка самолёта
-
             if (HasPlane)
             {
                 if (additions != null)
