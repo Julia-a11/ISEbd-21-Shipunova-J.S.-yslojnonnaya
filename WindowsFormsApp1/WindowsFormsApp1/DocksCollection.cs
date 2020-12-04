@@ -129,7 +129,6 @@ namespace Laboratornaya
                     }
                     else if (line.Contains(separator))
                     {
-
                         if (line.Contains("WarShip"))
                         {
                             warShip = new WarShip(line.Split(separator)[1]);
