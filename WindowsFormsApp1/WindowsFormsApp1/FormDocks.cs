@@ -57,48 +57,26 @@ namespace Laboratornaya
         //обработка нажатия кнопки "Припарковать военный корабль"
         private void buttonParkingWarShip_Click(object sender, EventArgs e)
         {
-            if (listBoxDocks.SelectedIndex > -1)
+            FormWaterTransportConfig formWaterTransportConfig = new FormWaterTransportConfig();
+            formWaterTransportConfig.AddEvent(AddShip);
+            formWaterTransportConfig.ShowDialog();
+        }
+
+        private void AddShip(Ship ship)
+        {
+            if (ship != null && listBoxDocks.SelectedIndex > -1)
             {
-                ColorDialog dialog = new ColorDialog();
-                if (dialog.ShowDialog() == DialogResult.OK)
+                if ((docksCollection[listBoxDocks.SelectedItem.ToString()] + ship))
                 {
-                    var ship = new WarShip(100, 1000, dialog.Color);
-                    if (docksCollection[listBoxDocks.SelectedItem.ToString()] + ship)
-                    {
-                        Draw();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Доки переполнены");
-                    }
+                    Draw();
+                }
+                else
+                {
+                    MessageBox.Show("Корабль не удалось поставить");
                 }
             }
         }
 
-        //обработка нажатия кнопки "Припарковать авианосец"
-        private void buttonParkingAircraftCarrier_Click(object sender, EventArgs e)
-        {
-            if (listBoxDocks.SelectedIndex > -1)
-            {
-                ColorDialog dialog = new ColorDialog();
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    ColorDialog dialogDop = new ColorDialog();
-                    if (dialogDop.ShowDialog() == DialogResult.OK)
-                    {
-                        var ship = new AircraftCarrier(100, 1000, dialog.Color, dialogDop.Color, true, true, true, 3, 0);
-                        if (docksCollection[listBoxDocks.SelectedItem.ToString()] + ship)
-                        {
-                            Draw();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Доки переполнены");
-                        }
-                    }
-                }
-            }
-        }
 
         //обработка кнопки "Забрать"
         private void buttonTakeShip_Click(object sender, EventArgs e)

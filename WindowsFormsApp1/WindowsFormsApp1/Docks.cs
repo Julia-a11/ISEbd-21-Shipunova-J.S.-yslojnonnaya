@@ -86,7 +86,6 @@ namespace Laboratornaya
                     (pictureHeight / _placeSizeHeight) * _placeSizeHeight);
             }
         }
-
         public T this [int index]
         {
             get

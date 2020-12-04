@@ -19,14 +19,13 @@ namespace Laboratornaya
         public bool HasRadar { private set; get; }
 
         // Конструктор
-        public AircraftCarrier(int maxSpeed, float weight, Color mainColor, Color dopColor, bool hasPlane, bool hasRunWay, bool hasRadar, int planesCount, int planeType) :
+        public AircraftCarrier(int maxSpeed, float weight, Color mainColor, Color dopColor, bool hasPlane, bool hasRunWay, bool hasRadar) :
             base(maxSpeed, weight, mainColor, 150, 100)
         {
             DopColor = dopColor;
             HasPlane = hasPlane;
             HasRunWay = hasRunWay;
             HasRadar = hasRadar;
-            additions = GetAdditions(planeType, planesCount);
         }
 
         // отрисовка авианосца
@@ -44,10 +43,9 @@ namespace Laboratornaya
                    new Point((int)(_startPosX + 150), (int)(_startPosY + 22)),
                    new Point((int)(_startPosX + 150), (int)(_startPosY + 78)),
                    new Point((int)(_startPosX ), (int)(_startPosY + 78)),
-
                 };
                 g.FillPolygon(new SolidBrush(DopColor), points);
-                g.DrawLine(new Pen(Color.White), _startPosX , _startPosY + 47, _startPosX + 150, _startPosY + 47);
+                g.DrawLine(new Pen(Color.White), _startPosX, _startPosY + 47, _startPosX + 150, _startPosY + 47);
             }
 
             // отрисовка радара
@@ -58,27 +56,30 @@ namespace Laboratornaya
             }
 
             // отрисовка самолёта
+
             if (HasPlane)
             {
-                g.DrawLine(new Pen(Color.Black), _startPosX + 104, _startPosY + 27, _startPosX + 104, _startPosY + 43);
-                g.DrawLine(new Pen(Color.Black), _startPosX + 104, _startPosY + 35, _startPosX + 120, _startPosY + 35);
-                g.FillRectangle(new SolidBrush(Color.LightSlateGray), _startPosX + 111, _startPosY + 26, 5, 20);
+                if (additions != null)
+                {
+                    additions.DrawAdditions(g, _startPosX, _startPosY);
+                }
+                else
+                {
+                    g.DrawLine(new Pen(Color.Black), _startPosX + 104, _startPosY + 27, _startPosX + 104, _startPosY + 43);
+                    g.DrawLine(new Pen(Color.Black), _startPosX + 104, _startPosY + 35, _startPosX + 120, _startPosY + 35);
+                    g.FillRectangle(new SolidBrush(Color.LightSlateGray), _startPosX + 111, _startPosY + 26, 5, 20);
+                }
             }
-            additions?.DrawAdditions(g, _startPosX, _startPosY);
         }
 
-        private IAdditions GetAdditions(int planeType, int planesCount)
+        public void SetDopColor(Color color)
         {
-            switch (planeType)     
-            {
-                case 0:
-                    return new Plane(planesCount);
-                case 1:
-                    return new Destroyer(planesCount);
-                case 2:
-                    return new Bomber(planesCount);                
-            }
-            return null;
+            DopColor = color;
+        }
+
+        public void SetAdditions(IAdditions additions)
+        {
+            this.additions = additions;
         }
     }
 }
