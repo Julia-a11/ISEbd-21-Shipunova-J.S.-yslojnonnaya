@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace Laboratornaya
 {
@@ -58,6 +59,11 @@ namespace Laboratornaya
             g.DrawLine(new Pen(Color.Black), _startPosX + 88, _startPosY + 48, _startPosX + 88, _startPosY + 64);
             g.DrawLine(new Pen(Color.Black), _startPosX + 88, _startPosY + 56, _startPosX + 104, _startPosY + 56);
             g.FillRectangle(new SolidBrush(Color.LightSlateGray), _startPosX + 95, _startPosY + 49, 5, 18);
+        }
+
+        public override string ToString()
+        {
+            return this.GetType().Name + "." + Convert.ToInt32(planeEnum);
         }
     }
 }

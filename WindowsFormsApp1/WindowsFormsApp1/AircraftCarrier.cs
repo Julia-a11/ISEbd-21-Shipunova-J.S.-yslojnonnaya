@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace Laboratornaya
 {
@@ -26,6 +27,34 @@ namespace Laboratornaya
             HasPlane = hasPlane;
             HasRunWay = hasRunWay;
             HasRadar = hasRadar;
+        }
+
+        public AircraftCarrier(string info) : base(info)
+        {
+            string[] str = info.Split(separator);
+            if (str.Length == 8)
+            {
+                MaxSpeed = Convert.ToInt32(str[0]);
+                Weight = Convert.ToInt32(str[1]);
+                MainColor = Color.FromName(str[2]);
+                DopColor = Color.FromName(str[3]);
+                HasPlane = Convert.ToBoolean(str[4]);
+                HasRunWay = Convert.ToBoolean(str[5]);
+                HasRadar = Convert.ToBoolean(str[6]);
+                
+                switch(str[7].Split('.')[0])
+                {
+                    case "Bomber":
+                        additions = new Bomber(Convert.ToInt32(str[7].Split('.')[1]));
+                        break;
+                    case "Destroyer":
+                        additions = new Destroyer(Convert.ToInt32(str[7].Split('.')[1]));
+                        break;
+                    case "Plane":
+                        additions = new Plane(Convert.ToInt32(str[7].Split('.')[1]));
+                        break;
+                }
+            }
         }
 
         // отрисовка авианосца
@@ -79,6 +108,12 @@ namespace Laboratornaya
         public void SetAdditions(IAdditions additions)
         {
             this.additions = additions;
+        }
+
+        public override string ToString()
+        {
+            return
+           $"{base.ToString()}{separator}{DopColor.Name}{separator}{HasPlane}{separator}{HasRunWay}{separator}{HasRadar}{separator}{additions}";
         }
     }
 }

@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.pictureBoxDocks = new System.Windows.Forms.PictureBox();
-            this.buttonParkingWarShip = new System.Windows.Forms.Button();
+            this.buttonAddWarShip = new System.Windows.Forms.Button();
             this.buttonTakeShip = new System.Windows.Forms.Button();
             this.labelPlace = new System.Windows.Forms.Label();
             this.maskedTextBoxNumber = new System.Windows.Forms.MaskedTextBox();
@@ -40,28 +40,38 @@
             this.buttonAddDocks = new System.Windows.Forms.Button();
             this.listBoxDocks = new System.Windows.Forms.ListBox();
             this.buttonDocksRemove = new System.Windows.Forms.Button();
+            this.menuStripDocks = new System.Windows.Forms.MenuStrip();
+            this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.загрузитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.докToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.сохранитьДокToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.загрузитьДокToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.buttonTransfer = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDocks)).BeginInit();
             this.groupBoxTakeShip.SuspendLayout();
+            this.menuStripDocks.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBoxDocks
             // 
-            this.pictureBoxDocks.Location = new System.Drawing.Point(1, 1);
+            this.pictureBoxDocks.Location = new System.Drawing.Point(3, 30);
             this.pictureBoxDocks.Name = "pictureBoxDocks";
-            this.pictureBoxDocks.Size = new System.Drawing.Size(755, 487);
+            this.pictureBoxDocks.Size = new System.Drawing.Size(753, 455);
             this.pictureBoxDocks.TabIndex = 0;
             this.pictureBoxDocks.TabStop = false;
             // 
-            // buttonParkingWarShip
+            // buttonAddWarShip
             // 
-            this.buttonParkingWarShip.Location = new System.Drawing.Point(761, 252);
-            this.buttonParkingWarShip.Name = "buttonParkingWarShip";
-            this.buttonParkingWarShip.Size = new System.Drawing.Size(113, 51);
-            this.buttonParkingWarShip.TabIndex = 1;
-            this.buttonParkingWarShip.Text = "Припарковать военный корабль";
-            this.buttonParkingWarShip.UseVisualStyleBackColor = true;
-            this.buttonParkingWarShip.Click += new System.EventHandler(this.buttonParkingWarShip_Click);
+            this.buttonAddWarShip.Location = new System.Drawing.Point(763, 280);
+            this.buttonAddWarShip.Name = "buttonAddWarShip";
+            this.buttonAddWarShip.Size = new System.Drawing.Size(113, 51);
+            this.buttonAddWarShip.TabIndex = 1;
+            this.buttonAddWarShip.Text = "Добавить военное судно";
+            this.buttonAddWarShip.UseVisualStyleBackColor = true;
+            this.buttonAddWarShip.Click += new System.EventHandler(this.buttonAddWarShip_Click);
             // 
             // buttonTakeShip
             // 
@@ -103,7 +113,7 @@
             this.groupBoxTakeShip.Controls.Add(this.maskedTextBoxNumber);
             this.groupBoxTakeShip.Controls.Add(this.labelPlace);
             this.groupBoxTakeShip.Controls.Add(this.buttonTakeShip);
-            this.groupBoxTakeShip.Location = new System.Drawing.Point(762, 352);
+            this.groupBoxTakeShip.Location = new System.Drawing.Point(763, 352);
             this.groupBoxTakeShip.Name = "groupBoxTakeShip";
             this.groupBoxTakeShip.Size = new System.Drawing.Size(115, 124);
             this.groupBoxTakeShip.TabIndex = 8;
@@ -113,7 +123,7 @@
             // 
             this.labelDocks.AutoSize = true;
             this.labelDocks.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelDocks.Location = new System.Drawing.Point(793, 9);
+            this.labelDocks.Location = new System.Drawing.Point(792, 27);
             this.labelDocks.Name = "labelDocks";
             this.labelDocks.Size = new System.Drawing.Size(45, 18);
             this.labelDocks.TabIndex = 9;
@@ -121,14 +131,14 @@
             // 
             // textBoxDocks
             // 
-            this.textBoxDocks.Location = new System.Drawing.Point(763, 30);
+            this.textBoxDocks.Location = new System.Drawing.Point(763, 48);
             this.textBoxDocks.Name = "textBoxDocks";
             this.textBoxDocks.Size = new System.Drawing.Size(108, 20);
             this.textBoxDocks.TabIndex = 10;
             // 
             // buttonAddDocks
             // 
-            this.buttonAddDocks.Location = new System.Drawing.Point(762, 56);
+            this.buttonAddDocks.Location = new System.Drawing.Point(761, 74);
             this.buttonAddDocks.Name = "buttonAddDocks";
             this.buttonAddDocks.Size = new System.Drawing.Size(113, 29);
             this.buttonAddDocks.TabIndex = 11;
@@ -139,7 +149,7 @@
             // listBoxDocks
             // 
             this.listBoxDocks.FormattingEnabled = true;
-            this.listBoxDocks.Location = new System.Drawing.Point(762, 109);
+            this.listBoxDocks.Location = new System.Drawing.Point(762, 123);
             this.listBoxDocks.Name = "listBoxDocks";
             this.listBoxDocks.Size = new System.Drawing.Size(112, 56);
             this.listBoxDocks.TabIndex = 12;
@@ -147,7 +157,7 @@
             // 
             // buttonDocksRemove
             // 
-            this.buttonDocksRemove.Location = new System.Drawing.Point(763, 171);
+            this.buttonDocksRemove.Location = new System.Drawing.Point(762, 185);
             this.buttonDocksRemove.Name = "buttonDocksRemove";
             this.buttonDocksRemove.Size = new System.Drawing.Size(113, 29);
             this.buttonDocksRemove.TabIndex = 13;
@@ -155,12 +165,78 @@
             this.buttonDocksRemove.UseVisualStyleBackColor = true;
             this.buttonDocksRemove.Click += new System.EventHandler(this.buttonDocksRemove_Click);
             // 
+            // menuStripDocks
+            // 
+            this.menuStripDocks.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.файлToolStripMenuItem,
+            this.докToolStripMenuItem});
+            this.menuStripDocks.Location = new System.Drawing.Point(0, 0);
+            this.menuStripDocks.Name = "menuStripDocks";
+            this.menuStripDocks.Size = new System.Drawing.Size(880, 24);
+            this.menuStripDocks.TabIndex = 14;
+            this.menuStripDocks.Text = "Меню доков";
+            // 
+            // файлToolStripMenuItem
+            // 
+            this.файлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.сохранитьToolStripMenuItem,
+            this.загрузитьToolStripMenuItem});
+            this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
+            this.файлToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.файлToolStripMenuItem.Text = "Файл";
+            // 
+            // сохранитьToolStripMenuItem
+            // 
+            this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.сохранитьToolStripMenuItem.Text = "Сохранить";
+            this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
+            // 
+            // загрузитьToolStripMenuItem
+            // 
+            this.загрузитьToolStripMenuItem.Name = "загрузитьToolStripMenuItem";
+            this.загрузитьToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.загрузитьToolStripMenuItem.Text = "Загрузить";
+            this.загрузитьToolStripMenuItem.Click += new System.EventHandler(this.загрузитьToolStripMenuItem_Click);
+            // 
+            // докToolStripMenuItem
+            // 
+            this.докToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.сохранитьДокToolStripMenuItem,
+            this.загрузитьДокToolStripMenuItem});
+            this.докToolStripMenuItem.Name = "докToolStripMenuItem";
+            this.докToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
+            this.докToolStripMenuItem.Text = "Док";
+            // 
+            // сохранитьДокToolStripMenuItem
+            // 
+            this.сохранитьДокToolStripMenuItem.Name = "сохранитьДокToolStripMenuItem";
+            this.сохранитьДокToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.сохранитьДокToolStripMenuItem.Text = "Сохранить док";
+            this.сохранитьДокToolStripMenuItem.Click += new System.EventHandler(this.сохранитьДокToolStripMenuItem_Click);
+            // 
+            // загрузитьДокToolStripMenuItem
+            // 
+            this.загрузитьДокToolStripMenuItem.Name = "загрузитьДокToolStripMenuItem";
+            this.загрузитьДокToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.загрузитьДокToolStripMenuItem.Text = "Загрузить док";
+            this.загрузитьДокToolStripMenuItem.Click += new System.EventHandler(this.загрузитьДокToolStripMenuItem_Click);
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "openFileDialog";
+            this.openFileDialog.Filter = "txt file | *.txt";
+            // 
+            // saveFileDialog
+            // 
+            this.saveFileDialog.Filter = "txt file | *.txt";
+            // 
             // buttonTransfer
             // 
-            this.buttonTransfer.Location = new System.Drawing.Point(762, 206);
+            this.buttonTransfer.Location = new System.Drawing.Point(762, 231);
             this.buttonTransfer.Name = "buttonTransfer";
-            this.buttonTransfer.Size = new System.Drawing.Size(113, 26);
-            this.buttonTransfer.TabIndex = 14;
+            this.buttonTransfer.Size = new System.Drawing.Size(113, 29);
+            this.buttonTransfer.TabIndex = 15;
             this.buttonTransfer.Text = "Передать";
             this.buttonTransfer.UseVisualStyleBackColor = true;
             this.buttonTransfer.Click += new System.EventHandler(this.buttonTransfer_Click);
@@ -177,14 +253,18 @@
             this.Controls.Add(this.textBoxDocks);
             this.Controls.Add(this.labelDocks);
             this.Controls.Add(this.groupBoxTakeShip);
-            this.Controls.Add(this.buttonParkingWarShip);
+            this.Controls.Add(this.buttonAddWarShip);
             this.Controls.Add(this.pictureBoxDocks);
+            this.Controls.Add(this.menuStripDocks);
+            this.MainMenuStrip = this.menuStripDocks;
             this.Name = "FormDocks";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Доки";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDocks)).EndInit();
             this.groupBoxTakeShip.ResumeLayout(false);
             this.groupBoxTakeShip.PerformLayout();
+            this.menuStripDocks.ResumeLayout(false);
+            this.menuStripDocks.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -193,7 +273,7 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBoxDocks;
-        private System.Windows.Forms.Button buttonParkingWarShip;
+        private System.Windows.Forms.Button buttonAddWarShip;
         private System.Windows.Forms.Label labelPlace;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxNumber;
         private System.Windows.Forms.Label labelTakeShip;
@@ -204,6 +284,15 @@
         private System.Windows.Forms.Button buttonAddDocks;
         private System.Windows.Forms.ListBox listBoxDocks;
         private System.Windows.Forms.Button buttonDocksRemove;
+        private System.Windows.Forms.MenuStrip menuStripDocks;
+        private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem сохранитьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem загрузитьToolStripMenuItem;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.ToolStripMenuItem докToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem сохранитьДокToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem загрузитьДокToolStripMenuItem;
         private System.Windows.Forms.Button buttonTransfer;
     }
 }
