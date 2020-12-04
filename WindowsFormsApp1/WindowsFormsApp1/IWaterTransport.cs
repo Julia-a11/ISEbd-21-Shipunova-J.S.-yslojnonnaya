@@ -13,5 +13,7 @@ namespace Laboratornaya
 
         //отрисовка
         void DrawWaterTransport(Graphics g);
+
+        void SetMainColor(Color color);
     }
 }

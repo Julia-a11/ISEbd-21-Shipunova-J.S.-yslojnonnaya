@@ -26,12 +26,12 @@ namespace Laboratornaya
             Graphics gr = Graphics.FromImage(bmp);
             ship?.DrawWaterTransport(gr);
             pictureBoxWaterTransport.Image = bmp;
-        }       
-
+        }
+         
         // Обработка нажатия кнопок управления
         private void buttonMove_Click(object sender, EventArgs e)
         {
-            string name = (sender as Button).Name; 
+            string name = (sender as Button).Name;
             switch (name)
             {
                 case "buttonUp": 
