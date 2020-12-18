@@ -65,12 +65,12 @@ namespace Laboratornaya
         // сохранение информации по кораблям в доках в файл
         public void SaveData(string filename)
         {
+            if (File.Exists(filename))
+            {
+                File.Delete(filename);
+            }
             using (StreamWriter sw = new StreamWriter(filename, false, Encoding.Default))
             {
-                if (File.Exists(filename))
-                {
-                    File.Delete(filename);
-                }
                 sw.WriteLine($"DocksCollection");
                 foreach (var level in docksStages)
                 {
