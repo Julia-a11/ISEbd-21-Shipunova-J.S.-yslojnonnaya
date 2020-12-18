@@ -65,6 +65,10 @@ namespace Laboratornaya
         // сохранение информации по кораблям в доках в файл
         public void SaveData(string filename)
         {
+            if (File.Exists(filename))
+            {
+                File.Delete(filename);
+            }
             using (StreamWriter sw = new StreamWriter(filename, false, Encoding.Default))
             {
                 sw.WriteLine($"DocksCollection");
@@ -123,7 +127,6 @@ namespace Laboratornaya
                     }
                     else if (line.Contains(separator))
                     {
-
                         if (line.Contains("WarShip"))
                         {
                             warShip = new WarShip(line.Split(separator)[1]);
@@ -200,7 +203,6 @@ namespace Laboratornaya
                 {
                     if (line.Contains(separator))
                     {
-
                         if (line.Contains("WarShip"))
                         {
                             warShip = new WarShip(line.Split(separator)[1]);
