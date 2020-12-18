@@ -33,20 +33,15 @@ namespace Laboratornaya
             }
         }
 
-        object IEnumerator.Current
-        {
-            get
-            {
-                return Current;
-            }
-        }
-
+        object IEnumerator.Current => Current;
+        
         //конструктор
         public WarShip(int maxSpeed, float weight, Color mainColor)
         {
             MaxSpeed = maxSpeed;
             Weight = weight;
             MainColor = mainColor;
+            currentIndex = -1;
         }
 
         // конструктор для загрузки с файла
@@ -58,6 +53,7 @@ namespace Laboratornaya
                 MaxSpeed = Convert.ToInt32(str[0]);
                 Weight = Convert.ToInt32(str[1]);
                 MainColor = Color.FromName(str[2]);
+                currentIndex = -1;
             }
         }
 

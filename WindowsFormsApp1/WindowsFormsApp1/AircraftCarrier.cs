@@ -30,19 +30,18 @@ namespace Laboratornaya
                     case 0: return MaxSpeed.ToString();
                     case 1: return Weight.ToString();
                     case 2: return MainColor.Name;
+                    case 3: return DopColor.Name;
+                    case 4: return HasPlane.ToString();
+                    case 5: return HasRadar.ToString();
+                    case 6: return HasRunWay.ToString();
+                    case 7: return Additions.ToString();
                 }
                 return null;
             }
         }
 
-        object IEnumerator.Current
-        {
-            get
-            {
-                return Current;
-            }
-        }
-
+        object IEnumerator.Current => Current;
+        
         // Конструктор
         public AircraftCarrier(int maxSpeed, float weight, Color mainColor, Color dopColor, bool hasPlane, bool hasRunWay, bool hasRadar) :
             base(maxSpeed, weight, mainColor, 150, 100)
@@ -51,6 +50,7 @@ namespace Laboratornaya
             HasPlane = hasPlane;
             HasRunWay = hasRunWay;
             HasRadar = hasRadar;
+            currentIndex = -1;
         }
 
         public AircraftCarrier(string info) : base(info)
@@ -78,6 +78,7 @@ namespace Laboratornaya
                         Additions = new Plane(Convert.ToInt32(str[7].Split('.')[1]));
                         break;
                 }
+                currentIndex = -1;
             }
         }
 
@@ -109,7 +110,6 @@ namespace Laboratornaya
             }
 
             // отрисовка самолёта
-
             if (HasPlane)
             {
                 if (Additions != null)
@@ -244,7 +244,7 @@ namespace Laboratornaya
         public new bool MoveNext()
         {
             currentIndex++;
-            return currentIndex < 7 ;
+            return currentIndex < 8;
         }
 
         public void Dispose()
