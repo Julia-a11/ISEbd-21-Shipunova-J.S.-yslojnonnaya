@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 
+
 namespace Laboratornaya
 {
     // Параметризованный класс для хранения набора объектов от интерфейса IWaterTrnsport
@@ -40,7 +41,7 @@ namespace Laboratornaya
         {
             if (d._places.Count >= d._maxDocksPlaces)
             {
-                return false;
+                throw new DocksOverflowException();
             }
             d._places.Add(ship);
             return true;
@@ -49,9 +50,9 @@ namespace Laboratornaya
         // Перегрузка оператора вычитания
         public static T operator -(Docks<T,U> d, int index)
         {
-            if (index < -1 || index >= d._places.Count)
+            if (index < 0 || index >= d._places.Count)
             {
-                return null;
+                throw new DocksNotFoundException(index);
             }
             T ship = d._places[index];
             d._places.RemoveAt(index);
@@ -70,7 +71,7 @@ namespace Laboratornaya
             }
         }
 
-        // метод отрисовки мест
+        // Метод отрисовки мест
         private void DrawMarking(Graphics g)
         {
             Pen pen = new Pen(Color.Black, 3);
@@ -78,7 +79,7 @@ namespace Laboratornaya
             {
                 for (int j = 0; j < pictureHeight / _placeSizeHeight + 1; ++j)
                 {
-                    // линия разметки места
+                    // Линия разметки места
                     g.DrawLine(pen, i * _placeSizeWidth, j * _placeSizeHeight,
                         i * _placeSizeWidth + _placeSizeWidth / 2, j * _placeSizeHeight);
                 }
