@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 
-
 namespace Laboratornaya
 {
     // Параметризованный класс для хранения набора объектов от интерфейса IWaterTrnsport
@@ -71,7 +70,7 @@ namespace Laboratornaya
             }
         }
 
-        // Метод отрисовки мест
+        // метод отрисовки мест
         private void DrawMarking(Graphics g)
         {
             Pen pen = new Pen(Color.Black, 3);
@@ -79,7 +78,7 @@ namespace Laboratornaya
             {
                 for (int j = 0; j < pictureHeight / _placeSizeHeight + 1; ++j)
                 {
-                    // Линия разметки места
+                    // линия разметки места
                     g.DrawLine(pen, i * _placeSizeWidth, j * _placeSizeHeight,
                         i * _placeSizeWidth + _placeSizeWidth / 2, j * _placeSizeHeight);
                 }

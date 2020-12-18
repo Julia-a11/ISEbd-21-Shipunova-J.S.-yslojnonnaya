@@ -112,7 +112,6 @@ namespace Laboratornaya
             if (listBoxDocks.SelectedItem == null)
             {
                 MessageBox.Show("Выберите док", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                logger.Fatal("Ошибка! Док не выбран!");
                 return;
             }
             if (MessageBox.Show($"Удалить док {listBoxDocks.SelectedItem.ToString()}?",

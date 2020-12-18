@@ -67,6 +67,10 @@ namespace Laboratornaya
         {
             using (StreamWriter sw = new StreamWriter(filename, false, Encoding.Default))
             {
+                if (File.Exists(filename))
+                {
+                    File.Delete(filename);
+                }
                 sw.WriteLine($"DocksCollection");
                 foreach (var level in docksStages)
                 {
