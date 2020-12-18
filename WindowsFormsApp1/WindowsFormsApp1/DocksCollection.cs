@@ -63,7 +63,7 @@ namespace Laboratornaya
         }
 
         // сохранение информации по кораблям в доках в файл
-        public bool SaveData(string filename)
+        public void SaveData(string filename)
         {
             if (File.Exists(filename))
             {
@@ -97,15 +97,14 @@ namespace Laboratornaya
                     }
                 }
             }
-            return true;
         }
 
         // загрузка информации по кораблям в доках из файла
-        public bool LoadData(string filename)
+        public void LoadData(string filename)
         {
             if (!File.Exists(filename))
             {
-                return false;
+                throw new FileNotFoundException();
             }
             using (StreamReader sr = new StreamReader(filename, Encoding.Default))
             {
@@ -116,7 +115,7 @@ namespace Laboratornaya
                 }
                 else
                 {
-                    return false;
+                    throw new FileLoadException();
                 }
                 string key = string.Empty;
                 WarShip warShip = null;
@@ -139,19 +138,18 @@ namespace Laboratornaya
                         }
                         if (!(docksStages[key] + warShip))
                         {
-                            return false;
+                            throw new DocksOverflowException();
                         }
                     }
                 }
             }
-            return true;
         }
 
-        public bool SaveDock(string filename, string key)
+        public void SaveDock(string filename, string key)
         {
             if (!docksStages.ContainsKey(key))
             {
-                return false;
+                throw new KeyNotFoundException();
             }
             using (StreamWriter sw = new StreamWriter(filename, false, Encoding.Default))
             {
@@ -177,22 +175,21 @@ namespace Laboratornaya
                     }
                 }
             }
-            return true;
         }
 
         // загрузка информации по кораблям в доках из файла
-        public bool LoadDock(string filename)
+        public void LoadDock(string filename)
         {
             if (!File.Exists(filename))
             {
-                return false;
+                throw new FileNotFoundException();
             }
             using (StreamReader sr = new StreamReader(filename, Encoding.Default))
             {
                 string line = sr.ReadLine();
                 if (!line.Contains("Docks:"))
                 {
-                    return false;
+                    throw new FileLoadException();
                 }
                 string key = line.Split(separator)[1];
                 if (docksStages.ContainsKey(key))
@@ -218,12 +215,11 @@ namespace Laboratornaya
                         }
                         if (!(docksStages[key] + warShip))
                         {
-                            return false;
+                            throw new DocksOverflowException();
                         }
                     }
                 }
             }
-            return true;
         }
 
         public Ship this[string name, int ind]

@@ -65,7 +65,7 @@
             // 
             // buttonAddWarShip
             // 
-            this.buttonAddWarShip.Location = new System.Drawing.Point(763, 280);
+            this.buttonAddWarShip.Location = new System.Drawing.Point(760, 285);
             this.buttonAddWarShip.Name = "buttonAddWarShip";
             this.buttonAddWarShip.Size = new System.Drawing.Size(113, 51);
             this.buttonAddWarShip.TabIndex = 1;
@@ -113,7 +113,7 @@
             this.groupBoxTakeShip.Controls.Add(this.maskedTextBoxNumber);
             this.groupBoxTakeShip.Controls.Add(this.labelPlace);
             this.groupBoxTakeShip.Controls.Add(this.buttonTakeShip);
-            this.groupBoxTakeShip.Location = new System.Drawing.Point(763, 352);
+            this.groupBoxTakeShip.Location = new System.Drawing.Point(764, 352);
             this.groupBoxTakeShip.Name = "groupBoxTakeShip";
             this.groupBoxTakeShip.Size = new System.Drawing.Size(115, 124);
             this.groupBoxTakeShip.TabIndex = 8;
@@ -233,7 +233,7 @@
             // 
             // buttonTransfer
             // 
-            this.buttonTransfer.Location = new System.Drawing.Point(762, 231);
+            this.buttonTransfer.Location = new System.Drawing.Point(761, 220);
             this.buttonTransfer.Name = "buttonTransfer";
             this.buttonTransfer.Size = new System.Drawing.Size(113, 29);
             this.buttonTransfer.TabIndex = 15;
