@@ -44,6 +44,7 @@ namespace Laboratornaya
             }
         }
 
+
         //метод отрисовки дока
         private void Draw()
         {
@@ -60,12 +61,15 @@ namespace Laboratornaya
             pictureBoxDocks.Image = bmp;
         }
 
+
+
         //обработка кнопки "Забрать"
         private void buttonTakeShip_Click(object sender, EventArgs e)
         {
             if (listBoxDocks.SelectedItem == null)
             {
                 MessageBox.Show("Выберите док", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                logger.Fatal("Ошибка! Док не выбран!");
                 return;
             }
             if (maskedTextBoxNumber.Text != "")
@@ -112,6 +116,7 @@ namespace Laboratornaya
             if (listBoxDocks.SelectedItem == null)
             {
                 MessageBox.Show("Выберите док", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                logger.Fatal("Ошибка! Док не выбран!");
                 return;
             }
             if (MessageBox.Show($"Удалить док {listBoxDocks.SelectedItem.ToString()}?",
@@ -154,6 +159,12 @@ namespace Laboratornaya
                         MessageBoxIcon.Error);
                     logger.Warn(ex.Message);
                 }
+                catch (DocksAlreadyHaveException ex)
+                {
+                    MessageBox.Show(ex.Message, "Дублирование", MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                    logger.Warn(ex.Message);
+                }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Неизвестная ошибка", MessageBoxButtons.OK,
@@ -168,6 +179,7 @@ namespace Laboratornaya
             if (listBoxDocks.SelectedItem == null)
             {
                 MessageBox.Show("Выберите док", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                logger.Fatal("Ошибка! Док не выбран!");
                 return;
             }
             FormWaterTransportConfig formWaterTransportConfig = new FormWaterTransportConfig();
@@ -215,6 +227,12 @@ namespace Laboratornaya
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     logger.Warn(ex.Message);
                 }
+                catch (DocksAlreadyHaveException ex)
+                {
+                    MessageBox.Show(ex.Message, "Дублирование", MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                    logger.Warn(ex.Message);
+                }
                 catch (FileNotFoundException ex)
                 {
                     MessageBox.Show(ex.Message, "Файл не найден",
@@ -234,7 +252,6 @@ namespace Laboratornaya
                 }
             }
         }
-
         private void сохранитьДокToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -244,12 +261,6 @@ namespace Laboratornaya
                     docksCollection.SaveDock(saveFileDialog.FileName, Convert.ToString(listBoxDocks.SelectedItem));
                     MessageBox.Show("Сохранение прoшло успешно", "Результат",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                catch (KeyNotFoundException ex)
-                {
-                    MessageBox.Show(ex.Message, "Док не найден",
-                       MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    logger.Error(ex.Message);
                 }
                 catch (Exception ex)
                 {
@@ -276,6 +287,12 @@ namespace Laboratornaya
                 {
                     MessageBox.Show(ex.Message, "Переполнение",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    logger.Warn(ex.Message);
+                }
+                catch (DocksAlreadyHaveException ex)
+                {
+                    MessageBox.Show(ex.Message, "Дублирование", MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
                     logger.Warn(ex.Message);
                 }
                 catch (FileNotFoundException ex)
@@ -311,6 +328,16 @@ namespace Laboratornaya
             else
             {
                 MessageBox.Show("Коллекция пуста", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void buttonSort_Click(object sender, EventArgs e)
+        {
+            if (listBoxDocks.SelectedIndex > -1)
+            {
+                docksCollection[listBoxDocks.SelectedItem.ToString()].Sort();
+                Draw();
+                logger.Info("Сортировка уровней");
             }
         }
     }

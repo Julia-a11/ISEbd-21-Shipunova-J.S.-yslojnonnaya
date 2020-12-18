@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace Laboratornaya
 {
     //базовый класс
-    public class WarShip : Ship
+    public class WarShip : Ship, IEquatable<WarShip>, IComparable<WarShip>, IEnumerator<string>, IEnumerable<string>
     {
         // ширина отрисовки корабля
         protected readonly int shipWidth = 150;
@@ -14,6 +16,30 @@ namespace Laboratornaya
 
         // разделитель для записи информации по объекту в файл
         protected readonly char separator = ';';
+
+        protected int currentIndex;
+
+        public string Current
+        {
+            get
+            {
+                switch (currentIndex)
+                {
+                    case 0: return MaxSpeed.ToString();
+                    case 1: return Weight.ToString();
+                    case 2: return MainColor.Name;
+                }
+                return null;
+            }
+        }
+
+        object IEnumerator.Current
+        {
+            get
+            {
+                return Current;
+            }
+        }
 
         //конструктор
         public WarShip(int maxSpeed, float weight, Color mainColor)
@@ -129,6 +155,100 @@ namespace Laboratornaya
         public override string ToString()
         {
             return $"{MaxSpeed}{separator}{Weight}{separator}{MainColor.Name}";
+        }
+
+        // метод интерфейса IEquatable для класса WarShip
+        public bool Equals(WarShip other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+            if (GetType().Name != other.GetType().Name)
+            {
+                return false;
+            }
+            if (MaxSpeed != other.MaxSpeed)
+            {
+                return false;
+            }
+            if (Weight != other.Weight)
+            {
+                return false;
+            }
+            if (MainColor != other.MainColor)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        // перегрузка метода от object
+        public override bool Equals(Object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            if (!(obj is WarShip warShipObj))
+            {
+                return false;
+            }
+            else
+            {
+                return Equals(warShipObj);
+            }
+        }
+
+        public int CompareTo(WarShip other)
+        {
+            if (MaxSpeed != other.MaxSpeed)
+            {
+                return MaxSpeed.CompareTo(other.MaxSpeed);
+            }
+            if (Weight != other.Weight)
+            {
+                return Weight.CompareTo(other.Weight);
+            }
+            if (MainColor != other.MainColor)
+            {
+                return MainColor.Name.CompareTo(other.MainColor.Name);
+            }
+            return 0;
+        }
+
+        public void Dispose()
+        {
+     
+        }
+
+        public bool MoveNext()
+        {
+            currentIndex++;
+            return currentIndex < 3;
+        }
+
+        public void Reset()
+        {
+            currentIndex = -1;
+        }
+
+        private void PrintInfo()
+        {
+            foreach(string info in this)
+            {
+                Console.WriteLine(info);
+            }
+        }
+
+        public IEnumerator<string> GetEnumerator()
+        {
+            return this;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this;
         }
     }
 }

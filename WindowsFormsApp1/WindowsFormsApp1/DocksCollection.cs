@@ -65,10 +65,6 @@ namespace Laboratornaya
         // сохранение информации по кораблям в доках в файл
         public void SaveData(string filename)
         {
-            if (File.Exists(filename))
-            {
-                File.Delete(filename);
-            }
             using (StreamWriter sw = new StreamWriter(filename, false, Encoding.Default))
             {
                 sw.WriteLine($"DocksCollection");
@@ -76,8 +72,7 @@ namespace Laboratornaya
                 {
                     // начинаем парковку
                     sw.WriteLine($"Docks{separator}{level.Key}");
-                    IWaterTransport ship = null;
-                    for (int i = 0; (ship = level.Value.GetNext(i)) != null; i++)
+                    foreach (IWaterTransport ship in level.Value)
                     {
                         if (ship != null)
                         {
@@ -128,6 +123,7 @@ namespace Laboratornaya
                     }
                     else if (line.Contains(separator))
                     {
+
                         if (line.Contains("WarShip"))
                         {
                             warShip = new WarShip(line.Split(separator)[1]);
@@ -155,8 +151,7 @@ namespace Laboratornaya
             {
                 // начинаем парковку
                 sw.WriteLine($"Docks{separator}{key}");
-                IWaterTransport ship = null;
-                for (int i = 0; (ship = docksStages[key].GetNext(i)) != null; i++)
+                foreach (IWaterTransport ship in docksStages[key])
                 {
                     if (ship != null)
                     {
@@ -205,6 +200,7 @@ namespace Laboratornaya
                 {
                     if (line.Contains(separator))
                     {
+
                         if (line.Contains("WarShip"))
                         {
                             warShip = new WarShip(line.Split(separator)[1]);
