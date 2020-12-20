@@ -257,14 +257,6 @@ namespace Laboratornaya
             currentIndex = -1;
         }
 
-        private void PrintInfo()
-        {
-            foreach (string info in this)
-            {
-                Console.WriteLine(info);
-            }
-        }
-
         public new IEnumerator<string> GetEnumerator()
         {
             return this;
