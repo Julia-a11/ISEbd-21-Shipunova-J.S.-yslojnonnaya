@@ -154,6 +154,12 @@ namespace Laboratornaya
                         MessageBoxIcon.Error);
                     logger.Warn(ex.Message);
                 }
+                catch (DocksAlreadyHaveException ex)
+                {
+                    MessageBox.Show(ex.Message, "Дублирование", MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                    logger.Warn(ex.Message);
+                }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Неизвестная ошибка", MessageBoxButtons.OK,
@@ -213,6 +219,12 @@ namespace Laboratornaya
                 {
                     MessageBox.Show(ex.Message, "Переполнение",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    logger.Warn(ex.Message);
+                }
+                catch (DocksAlreadyHaveException ex)
+                {
+                    MessageBox.Show(ex.Message, "Дублирование", MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
                     logger.Warn(ex.Message);
                 }
                 catch (FileNotFoundException ex)
@@ -278,6 +290,12 @@ namespace Laboratornaya
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     logger.Warn(ex.Message);
                 }
+                catch (DocksAlreadyHaveException ex)
+                {
+                    MessageBox.Show(ex.Message, "Дублирование", MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                    logger.Warn(ex.Message);
+                }
                 catch (FileNotFoundException ex)
                 {
                     MessageBox.Show(ex.Message, "Файл не найден",
@@ -311,6 +329,16 @@ namespace Laboratornaya
             else
             {
                 MessageBox.Show("Коллекция пуста", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void buttonSort_Click(object sender, EventArgs e)
+        {
+            if (listBoxDocks.SelectedIndex > -1)
+            {
+                docksCollection[listBoxDocks.SelectedItem.ToString()].Sort();
+                Draw();
+                logger.Info("Сортировка уровней");
             }
         }
     }

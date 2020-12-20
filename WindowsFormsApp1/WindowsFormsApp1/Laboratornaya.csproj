@@ -58,6 +58,7 @@
     <Compile Include="Destroyer.cs" />
     <Compile Include="Direction.cs" />
     <Compile Include="Docks.cs" />
+    <Compile Include="DocksAlreadyHaveException.cs" />
     <Compile Include="DocksCollection.cs" />
     <Compile Include="DocksNotFoundException .cs" />
     <Compile Include="DocksOverflowException.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="AircraftCarrier.cs" />
     <Compile Include="WarShip.cs" />
     <Compile Include="Ship.cs" />
+    <Compile Include="WarShipComparer.cs" />
     <EmbeddedResource Include="FormDocks.resx">
       <DependentUpon>FormDocks.cs</DependentUpon>
     </EmbeddedResource>

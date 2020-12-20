@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace Laboratornaya
 {
-    class AircraftCarrier : WarShip
+    class AircraftCarrier : WarShip, IEquatable<AircraftCarrier>, IComparable<AircraftCarrier>, IEnumerator<string>, IEnumerable<string>
     {
-        private IAdditions additions;
+        public IAdditions Additions { set; get; }
 
         // дополнительные цвета
         public Color DopColor { private set; get; }
@@ -19,6 +21,27 @@ namespace Laboratornaya
         // наличие радара
         public bool HasRadar { private set; get; }
 
+        public new string Current
+        {
+            get
+            {
+                switch (currentIndex)
+                {
+                    case 0: return MaxSpeed.ToString();
+                    case 1: return Weight.ToString();
+                    case 2: return MainColor.Name;
+                    case 3: return DopColor.Name;
+                    case 4: return HasPlane.ToString();
+                    case 5: return HasRadar.ToString();
+                    case 6: return HasRunWay.ToString();
+                    case 7: return Additions.ToString();
+                }
+                return null;
+            }
+        }
+
+        object IEnumerator.Current => Current;
+        
         // Конструктор
         public AircraftCarrier(int maxSpeed, float weight, Color mainColor, Color dopColor, bool hasPlane, bool hasRunWay, bool hasRadar) :
             base(maxSpeed, weight, mainColor, 150, 100)
@@ -27,6 +50,7 @@ namespace Laboratornaya
             HasPlane = hasPlane;
             HasRunWay = hasRunWay;
             HasRadar = hasRadar;
+            currentIndex = -1;
         }
 
         public AircraftCarrier(string info) : base(info)
@@ -41,19 +65,20 @@ namespace Laboratornaya
                 HasPlane = Convert.ToBoolean(str[4]);
                 HasRunWay = Convert.ToBoolean(str[5]);
                 HasRadar = Convert.ToBoolean(str[6]);
-                
-                switch(str[7].Split('.')[0])
+
+                switch (str[7].Split('.')[0])
                 {
                     case "Bomber":
-                        additions = new Bomber(Convert.ToInt32(str[7].Split('.')[1]));
+                        Additions = new Bomber(Convert.ToInt32(str[7].Split('.')[1]));
                         break;
                     case "Destroyer":
-                        additions = new Destroyer(Convert.ToInt32(str[7].Split('.')[1]));
+                        Additions = new Destroyer(Convert.ToInt32(str[7].Split('.')[1]));
                         break;
                     case "Plane":
-                        additions = new Plane(Convert.ToInt32(str[7].Split('.')[1]));
+                        Additions = new Plane(Convert.ToInt32(str[7].Split('.')[1]));
                         break;
                 }
+                currentIndex = -1;
             }
         }
 
@@ -87,9 +112,9 @@ namespace Laboratornaya
             // отрисовка самолёта
             if (HasPlane)
             {
-                if (additions != null)
+                if (Additions != null)
                 {
-                    additions.DrawAdditions(g, _startPosX, _startPosY);
+                    Additions.DrawAdditions(g, _startPosX, _startPosY);
                 }
                 else
                 {
@@ -105,15 +130,141 @@ namespace Laboratornaya
             DopColor = color;
         }
 
-        public void SetAdditions(IAdditions additions)
-        {
-            this.additions = additions;
-        }
-
         public override string ToString()
         {
             return
-           $"{base.ToString()}{separator}{DopColor.Name}{separator}{HasPlane}{separator}{HasRunWay}{separator}{HasRadar}{separator}{additions}";
+           $"{base.ToString()}{separator}{DopColor.Name}{separator}{HasPlane}{separator}{HasRunWay}{separator}{HasRadar}{separator}{Additions}";
+        }
+
+        // метод интерфейса IEquatable для класса AircraftCarrier
+        public bool Equals(AircraftCarrier other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+            if (GetType().Name != other.GetType().Name)
+            {
+                return false;
+            }
+            if (MaxSpeed != other.MaxSpeed)
+            {
+                return false;
+            }
+            if (Weight != other.Weight)
+            {
+                return false;
+            }
+            if (MainColor != other.MainColor)
+            {
+                return false;
+            }
+            if (DopColor != other.DopColor)
+            {
+                return false;
+            }
+            if (HasPlane != other.HasPlane)
+            {
+                return false;
+            }
+            if (HasRadar != other.HasRadar)
+            {
+                return false;
+            }
+            if (HasRunWay != other.HasRunWay)
+            {
+                return false;
+            }
+            if (Additions != null && other.Additions != null && Additions.ToString() != other.Additions.ToString())
+            {
+                return false;
+            }
+            if (Additions == null ^ other.Additions == null)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        // Перегрузка метода от object
+        public override bool Equals(Object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            if (!(obj is AircraftCarrier warShipObj))
+            {
+                return false;
+            }
+            else
+            {
+                return Equals(warShipObj);
+            }
+        }
+
+        public int CompareTo(AircraftCarrier other)
+        {
+            var res = base.CompareTo(other);
+            if (res != 0)
+            {
+                return res;
+            }
+            if (DopColor != other.DopColor)
+            {
+                return DopColor.Name.CompareTo(other.DopColor.Name);
+            }
+            if (HasPlane != other.HasPlane)
+            {
+                return HasPlane.CompareTo(other.HasPlane);
+            }
+            if (HasRadar != other.HasRadar)
+            {
+                return HasRadar.CompareTo(other.HasRadar);
+            }
+            if (HasRunWay != other.HasRunWay)
+            {
+                return HasRunWay.CompareTo(other.HasRunWay);
+            }
+            if (Additions != null && other.Additions != null && Additions.ToString() != other.Additions.ToString())
+            {
+                return Additions.ToString().CompareTo(other.Additions.ToString());
+            }
+            if (Additions != null && other.Additions == null)
+            {
+                return -1;
+            }
+            if (Additions == null && other.Additions != null)
+            {
+                return 1;
+            }
+            return 0;
+        }
+
+        public new bool MoveNext()
+        {
+            currentIndex++;
+            return currentIndex < 8;
+        }
+
+        public void Dispose()
+        {
+
+        }
+
+        public new void Reset()
+        {
+            currentIndex = -1;
+        }
+
+        public new IEnumerator<string> GetEnumerator()
+        {
+            return this;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this;
         }
     }
 }

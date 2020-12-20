@@ -194,7 +194,7 @@ namespace Laboratornaya
                     additions = (Plane)e.Data.GetData(typeof(Plane));
                 }
                 AircraftCarrier aircraftCarrier = (AircraftCarrier)ship;
-                aircraftCarrier.SetAdditions(additions);
+                aircraftCarrier.Additions = additions;
                 DrawShip();
             }
         }

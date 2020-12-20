@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace Laboratornaya
 {
     // Параметризованный класс для хранения набора объектов от интерфейса IWaterTrnsport
-    public class Docks<T, U> where T : class, IWaterTransport
-                             where U : class, IAdditions
+    public class Docks<T, U> : IEnumerator<T>, IEnumerable<T>
+        where T : class, IWaterTransport
+        where U : class, IAdditions
     {
         //Список объектов, которые храним
         private readonly List<T> _places;
@@ -25,6 +27,12 @@ namespace Laboratornaya
         // Размер парковочного места (высота)
         private readonly int _placeSizeHeight = 130;
 
+        private int _currentIndex;
+
+        public T Current => _places[_currentIndex];
+
+        object IEnumerator.Current => _places[_currentIndex];
+
         public Docks(int picWidth, int picHeight)
         {
             int width = picWidth / _placeSizeWidth;
@@ -33,21 +41,26 @@ namespace Laboratornaya
             pictureWidth = picWidth;
             pictureHeight = picHeight;
             _places = new List<T>();
+            _currentIndex = -1;
         }
 
         //Перегрузка оператора сложения
-        public static bool operator +(Docks<T,U> d, T ship)
+        public static bool operator +(Docks<T, U> d, T ship)
         {
             if (d._places.Count >= d._maxDocksPlaces)
             {
                 throw new DocksOverflowException();
+            }
+            if (d._places.Contains(ship))
+            {
+                throw new DocksAlreadyHaveException();
             }
             d._places.Add(ship);
             return true;
         }
 
         // Перегрузка оператора вычитания
-        public static T operator -(Docks<T,U> d, int index)
+        public static T operator -(Docks<T, U> d, int index)
         {
             if (index < 0 || index >= d._places.Count)
             {
@@ -87,7 +100,7 @@ namespace Laboratornaya
             }
         }
 
-        public T this [int index]
+        public T this[int index]
         {
             get
             {
@@ -112,6 +125,41 @@ namespace Laboratornaya
         public void Clear()
         {
             _places.Clear();
+        }
+
+        // сортировка кораблей в доках
+        public void Sort() => _places.Sort((IComparer<T>)new WarShipComparer());
+
+        // метод интерфейса IEnumerator, вызываемый при удалении объекта
+        public void Dispose()
+        {
+
+        }
+
+        // Метод интерфейса IEnumerator для перехода к следующему элементу или началу
+        //коллекции
+        public bool MoveNext()
+        {
+            _currentIndex++;
+            return _currentIndex < _places.Count;
+        }
+
+        //  Метод интерфейса IEnumerator для сброса и возврата к началу коллекции
+        public void Reset()
+        {
+            _currentIndex = -1;
+        }
+
+        // Метод интерфейса IEnumerable
+        public IEnumerator<T> GetEnumerator()
+        {
+            return this;
+        }
+
+        // Метод интерфейса IEnumerable
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this;
         }
     }
 }
